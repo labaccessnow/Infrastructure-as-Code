@@ -1,12 +1,14 @@
 # Infrastructure as Code
 
 Declarative, version-controlled infrastructure — reproducible environments instead of
-hand-built ones.
+snowflakes, rebuildable from scratch.
 
 ## Stack
-- Terraform / Pulumi for cloud and virtualization provisioning
-- Proxmox + SDN as a programmable private-cloud substrate
-- GitHub Actions CI/CD with push-to-deploy
-- Configuration and secrets kept in git, SOPS-encrypted
+- **Provisioning** — Terraform / Pulumi for cloud and virtualization.
+- **Private cloud** — Proxmox + SDN as a programmable substrate (VMs, VLANs, zones).
+- **GitOps / CI-CD** — GitHub Actions pipelines: a commit triggers validation and a
+  push-to-deploy; infrastructure changes go through the same review as application code.
+- **State & secrets** — idempotent applies, remote/locked state in shared environments,
+  and SOPS-encrypted config kept in git.
 
-If it runs, it is defined in a repository and rebuildable from scratch.
+If it runs here, it is defined in a repository — and can be torn down and rebuilt deterministically.
