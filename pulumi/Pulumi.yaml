@@ -1,0 +1,8 @@
+name: lab-infra
+runtime:
+  name: python
+description: Example Pulumi (Python) stack — a tagged S3 bucket and N EC2 instances.
+config:
+  instanceCount:
+    type: integer
+    default: 2

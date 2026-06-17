@@ -1,0 +1,20 @@
+# Plan-in-CI, the static-analysis half: every root is initialized (no backend, no creds) and
+# validated on each push/PR — provider schemas and references are checked before anything
+# reaches apply. Drift detection and apply run separately, against real state with OIDC.
+name: validate
+on: [push, pull_request]
+
+jobs:
+  tofu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: opentofu/setup-opentofu@v1
+      - name: Validate each root
+        run: |
+          set -e
+          for d in examples examples/with-module modules/proxmox_vm; do
+            echo "== validate $d =="
+            tofu -chdir="$d" init -backend=false -input=false
+            tofu -chdir="$d" validate
+          done

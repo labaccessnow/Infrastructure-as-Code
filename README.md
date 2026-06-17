@@ -3,6 +3,23 @@
 Reproducible environments instead of snowflakes. If it runs here, it's defined in a repo and can
 be torn down and rebuilt deterministically — including the private-cloud substrate it runs on.
 
+## What's in this repo
+Runnable examples — a single root, a reusable module, encrypted state, an imperative
+alternative, policy guardrails, and CI:
+
+| Path | What it shows |
+|---|---|
+| [`examples/proxmox_vm.tf`](examples/proxmox_vm.tf) | A single-file root — provision a Proxmox VM, remote locked state |
+| [`modules/proxmox_vm/`](modules/proxmox_vm) | A **reusable module** — one definition, parameterized inputs |
+| [`examples/with-module/`](examples/with-module) | Calling the module — **two VMs, zero copy-paste** |
+| [`examples/state-encryption/`](examples/state-encryption) | **OpenTofu native state encryption** (1.7+) — no plaintext state at rest |
+| [`policy/require_tags.rego`](policy/require_tags.rego) | **Policy-as-code** (Conftest/OPA) — deny resources missing cost tags |
+| [`pulumi/`](pulumi) | The same goal in **Pulumi (Python)** — when infra needs real logic |
+| [`.github/workflows/validate.yml`](.github/workflows/validate.yml) | **CI** — init + validate every root on push/PR |
+
+> Placeholders throughout; provider tokens and the state passphrase come from the environment
+> (`PROXMOX_VE_API_TOKEN`, `TF_VAR_state_passphrase`) — nothing sensitive is committed.
+
 ## What it looks like in practice
 
 Provisioning Proxmox with the `bpg/proxmox` provider (works with both Terraform and OpenTofu),
